@@ -647,7 +647,7 @@
         <div class="checkbox-wrapper">
           <input type="checkbox" id="editDeniability" />
           <label for="editDeniability" class="checkbox-label">
-            Прятать цифры в сообщении
+            Прятать границы слов, цифры, спецзнаки в сообщении
           </label>
         </div>
       </div>
@@ -725,7 +725,7 @@ class IVernarus1 {
         'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
     ];
 
-    alphabets = this.alphanumAlphabets;
+    deniableAlphabet = ' -,.<>!?/\\+=-_)(*&^%$#@`|№;:';
 
     keyAlphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
     keyPosLength = 4;
@@ -743,10 +743,13 @@ class IVernarus1 {
         this.keyPos = keyPos;
 
         if (options.deniability !== null) {
-            this.deniability = false;
+            this.deniability = options.deniability;
         }
 
+        this.alphabets = this.alphanumAlphabets;
+
         if (this.deniability) {
+            this.alphabets.push(this.deniableAlphabet);
             this.alphabets = [ this.alphabets.join("") ];
         }
 
