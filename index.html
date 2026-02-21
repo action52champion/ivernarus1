@@ -1157,10 +1157,18 @@ const app = {
     const printableEnd = 126;   // ~
     const printableRange = printableEnd - printableStart + 1;
 
+
+    let randomArray = [];
+    while (randomArray.length < keySize) {
+        let tmpArray = new Uint8Array(1024);
+        window.crypto.getRandomValues(tmpArray);
+        randomArray.push(...tmpArray);
+    }
+
     let key = '';
     for (let i = 0; i < keySize; i++) {
       const randomChar = String.fromCharCode(
-        printableStart + Math.floor(Math.random() * printableRange)
+        printableStart + (randomArray[i] % printableRange)
       );
       key += randomChar;
     }
