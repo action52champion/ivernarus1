@@ -647,7 +647,7 @@
         <div class="checkbox-wrapper">
           <input type="checkbox" id="editDeniability" />
           <label for="editDeniability" class="checkbox-label">
-            Прятать границы слов, цифры, спецзнаки в сообщении
+            Прятать границы слов,цифры, спецзнаки в сообщении
           </label>
         </div>
       </div>
@@ -691,12 +691,13 @@
     <div class="chat-card">
       <div class="message-group">
         <label class="message-label" for="inputMessage">Обычное сообщение</label>
-        <textarea id="inputMessage" placeholder="Читаемый текст..."></textarea>
+        <textarea id="inputMessage" placeholder="Простой текст..."></textarea>
       </div>
 
       <div class="chat-actions">
         <button class="btn btn-primary" onclick="app.encodeMessage()">🔒 Шифровать</button>
         <button class="btn btn-secondary" onclick="document.getElementById('inputMessage').value='';">Очистить</button>
+        <button class="btn btn-primary" onclick="app.encodeMessageAndCopy()">🔒🗒️ Шифровать и копировать</button>
       </div>
 
       <br/><br/>
@@ -708,6 +709,7 @@
       <div class="chat-actions">
         <button class="btn btn-primary" onclick="app.decodeMessage()">🔓 Расшифровать</button>
         <button class="btn btn-secondary" onclick="document.getElementById('outputMessage').value='';">Очистить</button>
+        <button class="btn btn-primary" onclick="app.pasteAndDecodeMessage()">📋 Расшифровать из буфера</button>
       </div>
     </div>
   </div>
@@ -1285,6 +1287,15 @@ const app = {
       this.updateContactKeyLeftStat(contact);
   },
 
+  async encodeMessageAndCopy() {
+      this.encodeMessage();
+      const clipboardItemData = {
+          ["text/plain"]: document.getElementById('outputMessage').value,
+      };
+      const clipboardItem = new ClipboardItem(clipboardItemData);
+      await navigator.clipboard.write([clipboardItem]);
+  },
+
   encodeMessage() {
       const contact = this.data.contacts[this.currentContactId];
       const coder = new IVernarus1( contact.key_out,  contact.key_out_position, { 'deniability' : contact.use_deniability });
@@ -1300,6 +1311,12 @@ const app = {
       contact.key_out_position = coder.lastKeyPos;
 
       this.doKeyUpdates(contact, 'out', coder);
+  },
+
+  async pasteAndDecodeMessage() {
+      const text = await navigator.clipboard.readText();
+      document.getElementById('outputMessage').value = text;
+      app.decodeMessage();
   },
 
   decodeMessage() {
