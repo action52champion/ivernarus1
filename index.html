@@ -842,6 +842,7 @@ class IVernarus1 {
         return outMsg;
     }
 
+    // закодировать int четырьмя русскими буквами
     encodeKeyPos(pos) {
         let encodedKeyPos = '';
         let slidePos = pos;
@@ -861,7 +862,7 @@ class IVernarus1 {
         return encodedKeyPos;
     }
 
-    // сумма считается только для тех символов, которые будут декодированы
+    // сумма считается только для тех символов, которые могут быть зашифрованы
     calculateChecksum(msg) {
         const msgData = this.textToUtf8Array(msg);
 
@@ -976,6 +977,7 @@ class IVernarus1 {
     }
 
 };
+
 </script>
 <script>
 // ════════════════════════════════════════════════════════════════════════════
@@ -1351,7 +1353,7 @@ const app = {
           return;
       }
 
-      const coder = new IVernarus1( contact.key_in,  contact.key_in_position);
+      const coder = new IVernarus1( contact.key_in, contact.key_in_position, { 'deniability' : contact.use_deniability });
       const decoded = coder.decryptMessage(inputMessage);
       document.getElementById('inputMessage').value = decoded;
 
