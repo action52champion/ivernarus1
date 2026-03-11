@@ -552,16 +552,21 @@
     }
 
     .chat-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 10px;
     }
 
     .chat-actions .btn {
+      margin-top: 12px;
       padding: 14px 24px;
       font-size: 15px;
     }
+
+    .chat-actions > .btn-Animate-click {
+       background-color: green;
+    }
+
 
     /* ── Responsive ─────────────────────────────────────────────────────── */
     @media (max-width: 640px) {
@@ -695,9 +700,9 @@
       </div>
 
       <div class="chat-actions">
+        <button id="BtnEncodeMessageAndCopy" class="btn btn-primary" onclick="app.encodeMessageAndCopy()">🔒🗒️ Шифр. в буфер</button>
         <button class="btn btn-primary" onclick="app.encodeMessage()">🔒 Шифровать</button>
         <button class="btn btn-secondary" onclick="document.getElementById('inputMessage').value='';">Очистить</button>
-        <button class="btn btn-primary" onclick="app.encodeMessageAndCopy()">🔒🗒️ Шифровать и копировать</button>
       </div>
 
       <br/><br/>
@@ -707,9 +712,9 @@
         <textarea id="outputMessage" placeholder="Зашифрованный текст..." ></textarea>
       </div>
       <div class="chat-actions">
+        <button id="BtnPasteAndDecodeMessage" class="btn btn-primary" onclick="app.pasteAndDecodeMessage()">📋🔓 Расшифр. из буфера</button>
         <button class="btn btn-primary" onclick="app.decodeMessage()">🔓 Расшифровать</button>
         <button class="btn btn-secondary" onclick="document.getElementById('outputMessage').value='';">Очистить</button>
-        <button class="btn btn-primary" onclick="app.pasteAndDecodeMessage()">📋 Расшифровать из буфера</button>
       </div>
     </div>
   </div>
@@ -1019,8 +1024,8 @@ const app = {
       contactList.innerHTML = `
         <div class="empty-state">
           <div class="empty-state-icon">📇</div>
-          <div class="empty-state-title">No contacts yet</div>
-          <div class="empty-state-text">Add your first contact below</div>
+          <div class="empty-state-title">Нет контактов</div>
+          <div class="empty-state-text">Добавьте контакты в список</div>
         </div>
       `;
       return;
@@ -1287,13 +1292,21 @@ const app = {
       this.updateContactKeyLeftStat(contact);
   },
 
-  async encodeMessageAndCopy() {
+  animateButtonClick(btnElm) {
+      const className = "btn-Animate-click";
+      btnElm.classList.add(className);
+      setTimeout(() => { btnElm.classList.remove(className) }, 500)
+  },
+
+  async encodeMessageAndCopy(event) {
       this.encodeMessage();
       const clipboardItemData = {
           ["text/plain"]: document.getElementById('outputMessage').value,
       };
       const clipboardItem = new ClipboardItem(clipboardItemData);
       await navigator.clipboard.write([clipboardItem]);
+
+      this.animateButtonClick(document.getElementById("BtnEncodeMessageAndCopy"));
   },
 
   encodeMessage() {
@@ -1317,6 +1330,8 @@ const app = {
       const text = await navigator.clipboard.readText();
       document.getElementById('outputMessage').value = text;
       app.decodeMessage();
+      this.animateButtonClick(document.getElementById("BtnPasteAndDecodeMessage"));
+      document.getElementById('inputMessage').focus();
   },
 
   decodeMessage() {
