@@ -734,10 +734,10 @@ class IVernarus1 {
 
     deniableAlphabet = ' -,.<>!?/\\+=-_)(*&^%$#@`|№;:';
 
+    checksumMessageMinLen = 5;
+
     keyAlphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
     keyPosLength = 4;
-
-    extraDataLength = 6;
 
     encoders = [];
 
@@ -753,9 +753,13 @@ class IVernarus1 {
             this.deniability = options.deniability;
         }
 
+        this.buildAlphabets(this.deniability);
+    }
+
+    buildAlphabets(deniability) {
         this.alphabets = this.alphanumAlphabets;
 
-        if (this.deniability) {
+        if (deniability) {
             this.alphabets.push(this.deniableAlphabet);
             this.alphabets = [ this.alphabets.join("") ];
         }
@@ -863,15 +867,21 @@ class IVernarus1 {
     }
 
     // сумма считается только для тех символов, которые могут быть зашифрованы
+    // для коротких сообщений сумма считается рандомно, чтобы усложнить подбор
     calculateChecksum(msg) {
         const msgData = this.textToUtf8Array(msg);
 
         let checksum = 0;
+
         for (let i = 0; i < msgData.length; i++) {
             const charPos = this.encodableChars.indexOf(msgData[i]);
             if (charPos != -1) {
                 checksum += charPos;
             }
+        }
+
+        if (msgData.length < this.checksumMessageMinLen) {
+            checksum += Math.floor(Math.random() * this.keyAlphabet.length);
         }
 
         checksum = checksum % this.keyAlphabet.length;
@@ -892,10 +902,31 @@ class IVernarus1 {
             if (neededChars.indexOf(msgChars[i]) !== -1) {
                 appendPos = i;
                 break;
-            }           
+            }
         }
 
         return msg.substring(0, appendPos+1) + extraValues.join("") + msg.substring(appendPos+1);
+    }
+
+    encodeDeniability(deniabilityType) {
+        const border = Math.floor(this.keyAlphabet.length / 2);
+
+        let encoded = '';
+        if (deniabilityType) {
+            const denialAphabet = this.keyAlphabet.substring(border);
+            encoded = denialAphabet[ Math.floor( Math.random() * denialAphabet.length) ];
+        }
+        else {
+            const noDenialAphabet = this.keyAlphabet.substring(0, border);
+            encoded = noDenialAphabet[ Math.floor( Math.random() * noDenialAphabet.length) ];
+        }
+        return encoded;
+    }
+
+    decodeDeniability(rawDeniabilityVal) {
+        const border = Math.floor(this.keyAlphabet.length / 2);
+        const deniability = this.keyAlphabet.substring(0, border).indexOf(rawDeniabilityVal) == -1 ? true : false;
+        return deniability;
     }
 
     // разбить сообщение на служебную часть и сам текст
@@ -918,8 +949,7 @@ class IVernarus1 {
         }
 
         const checksum = msgChars[keyDataEndPos - this.keyPosLength];
-        let deniability = msgChars[keyDataEndPos - this.keyPosLength - 1];
-        deniability = this.keyAlphabet[deniability];
+        const deniability = msgChars[keyDataEndPos - this.keyPosLength - 1];
 
         const indexBeforeEncoderData = keyDataEndPos - this.keyPosLength - 1;
         const message = msgChars.slice(0, indexBeforeEncoderData ).join("") + msgChars.slice(keyDataEndPos+1).join("");
@@ -955,8 +985,7 @@ class IVernarus1 {
         const keyPosEncoded = this.encodeKeyPos(this.keyPos);
         const checksum = this.calculateChecksum(srcMsg);
 
-        const deniability = this.deniability ? this.keyAlphabet[1] : this.keyAlphabet[1];
-        outMsg = this.appendDecoderData(outMsg, [deniability, checksum, keyPosEncoded]);
+        outMsg = this.appendDecoderData(outMsg, [this.encodeDeniability(this.deniability), checksum, keyPosEncoded]);
         this.lastKeyPos = this.keyPos + srcMsg.length;
         
         return outMsg;
@@ -966,10 +995,11 @@ class IVernarus1 {
         const decodedData = this.parseMessage(srcMsg);
         const keyPos = this.decodeKeyPos(decodedData.keypos);
         const keyPiece = this.keyData.substring(keyPos, keyPos + decodedData.message.length);
+        const deniability = this.decodeDeniability(decodedData.deniability);
 
         let decodedMessage = this.decryptChunk(keyPiece, decodedData.message);
-        if (this.calculateChecksum(decodedMessage) !== decodedData.checksum) {
-            this.lastError = 'Контрольная сумма не сходится. Сообщение было повреждено. Если это повторяется - провайдер портит сообщения намеренно.';
+        if ((decodedData.message.length > this.checksumMessageMinLen) && (this.calculateChecksum(decodedMessage) !== decodedData.checksum)) {
+            this.lastError = 'Контрольная сумма не сходится. Сообщение было повреждено.';
         }
         this.lastKeyPos = keyPos + decodedMessage.length;
 
