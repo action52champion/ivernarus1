@@ -1,0 +1,7 @@
+{
+    "name": "ivernarus1",
+    "scripts": {
+        "tests": "nodejs tests/test_suite.js",
+        "build_html": "nodejs scripts/builder.js"
+    }
+}

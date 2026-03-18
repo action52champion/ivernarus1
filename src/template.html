@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ivernarus1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fafbfc;
+      --bg-card: #ffffff;
+      --bg-hover: #f5f7fa;
+      --border: #e1e8ed;
+      --border-focus: #6b8cae;
+      --text-primary: #1a2332;
+      --text-secondary: #5a6d7f;
+      --text-muted: #8b9ba8;
+      --accent: #4a7ba7;
+      --accent-hover: #3a6a95;
+      --danger: #d14343;
+      --danger-hover: #b93838;
+      --success: #3ea368;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+      --radius: 8px;
+      --font-display: 'Crimson Pro', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
+    /* ── Header ────────────────────────────────────────────────────────── */
+    .header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-content {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      letter-spacing: 0.3px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-size: 13px;
+      padding: 8px 16px;
+    }
+
+    .btn-outline:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ── Container ─────────────────────────────────────────────────────── */
+    .container {
+      flex: 1;
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    /* ── Main Page (Contact List) ──────────────────────────────────────── */
+    #mainPage {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .contact-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .contact-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-focus);
+    }
+
+    .contact-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6b8cae 0%, #4a7ba7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .contact-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-secondary {
+      background: var(--bg-hover);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border);
+      color: var(--text-primary);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: var(--danger-hover);
+    }
+
+    /* ── Add Contact Bar ───────────────────────────────────────────────── */
+    .add-contact-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .add-contact-bar input {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .add-contact-bar input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(107, 140, 174, 0.1);
+    }
+
+    .add-contact-bar input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* ── Edit Page ──────────────────────────────────────────────────────── */
+    #editPage {
+      animation: fadeIn 0.4s ease;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color 0.2s ease;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font-body);
+    }
+
+    .back-button:hover {
+      color: var(--accent);
+    }
+
+    .edit-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group:last-of-type {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(107, 140, 174, 0.1);
+    }
+
+    .file-upload-area {
+      border: 2px dashed var(--border);
+      border-radius: 6px;
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--bg-hover);
+    }
+
+    .file-upload-area:hover {
+      border-color: var(--border-focus);
+      background: var(--bg);
+    }
+
+    .file-upload-area.has-file {
+      border-color: var(--success);
+      background: rgba(62, 163, 104, 0.05);
+    }
+
+    .file-upload-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+
+    .file-upload-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .file-upload-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .info-box {
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+    }
+
+    .info-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+
+    .checkbox-label {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-primary);
+      text-transform: none;
+      letter-spacing: normal;
+      margin-bottom: 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+
+    .info-value {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-family: var(--font-display);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .form-actions .btn {
+      flex: 1;
+      padding: 14px 24px;
+      font-size: 15px;
+    }
+
+    /* ── Empty State ────────────────────────────────────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 80px 24px;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+
+    .empty-state-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* ── Utility ────────────────────────────────────────────────────────── */
+    .hidden {
+      display: none !important;
+    }
+
+    /* ── Chat Page ──────────────────────────────────────────────────────── */
+    #chatPage {
+      animation: fadeIn 0.4s ease;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .chat-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6b8cae 0%, #4a7ba7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .chat-header-info {
+      flex: 1;
+    }
+
+    .chat-contact-name {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .chat-contact-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .chat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .message-group {
+      margin-bottom: 24px;
+    }
+
+    .message-group:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .message-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    textarea {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    textarea:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(107, 140, 174, 0.1);
+    }
+
+    textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .chat-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 10px;
+    }
+
+    .chat-actions .btn {
+      margin-top: 12px;
+      padding: 14px 24px;
+      font-size: 15px;
+    }
+
+    .chat-actions > .btn-Animate-click {
+       background-color: green;
+    }
+
+
+    /* ── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .header { padding: 24px 16px; }
+      h1 { font-size: 28px; }
+      .container { padding: 24px 16px; }
+      .contact-item { padding: 16px; flex-wrap: wrap; }
+      .contact-avatar { width: 40px; height: 40px; font-size: 18px; }
+      .contact-actions { width: 100%; justify-content: flex-end; }
+      .add-contact-bar { flex-direction: column; }
+      .edit-card { padding: 24px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .form-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-content">
+    <h1>Ivernarus1</h1>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="app.exportData()">↓ Экспорт базы</button>
+      <button class="btn btn-outline" onclick="document.getElementById('importFileInput').click()">↑ Импорт базы</button>
+      <input type="file" id="importFileInput" accept=".json,application/json" onchange="app.importData(event)" style="display: none;" />
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- MAIN PAGE (Contact List) -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <div id="mainPage">
+    <div class="contact-list" id="contactList">
+      <!-- Contacts will be rendered here -->
+    </div>
+
+    <div class="add-contact-bar">
+      <input type="text" id="newContactName" placeholder="Имя..." />
+      <button class="btn btn-primary" onclick="app.createContact()">Добавить контакт</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- EDIT PAGE -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <div id="editPage" class="hidden">
+    <button class="back-button" onclick="app.showMainPage()">
+      ← Назад к списку
+    </button>
+
+    <div class="edit-card">
+      <div class="form-group">
+        <label for="editName">Имя контакта</label>
+        <input type="text" id="editName" placeholder="Иванов Иван" />
+      </div>
+
+      <div class="form-group">
+        <label>Ключ шифрования</label>
+        <div class="file-upload-area" id="fileUploadArea" onclick="document.getElementById('keyFileInput').click()">
+          <div class="file-upload-icon">📄</div>
+          <div class="file-upload-text" id="fileUploadText">Загрузить файл</div>
+          <div class="file-upload-hint"></div>
+        </div>
+        <input type="file" id="keyFileInput" accept=".txt,text/plain" onchange="app.handleKeyUpload(event)" />
+
+      <div class="form-actions">
+        <button class="btn btn-secondary" onclick="app.generateKey()">🎲 Сгенерировать ключ</button>
+        <button class="btn btn-secondary" onclick="app.shareKey()">💾 Передача ключа</button>
+      </div>
+
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="editKeyCleanup" />
+          <label for="editKeyCleanup" class="checkbox-label">
+            Подрезать ключ(сообщение можно прочитать только 1 раз)
+          </label>
+        </div>
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="editDeniability" />
+          <label for="editDeniability" class="checkbox-label">
+            Прятать границы слов,цифры, спецзнаки в сообщении
+          </label>
+        </div>
+      </div>
+
+
+      <div class="info-grid">
+        <div class="info-box">
+          <div class="info-label">Длина ключа</div>
+          <div class="info-value" id="keyLengthDisplay">—</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">ID контакта</div>
+          <div class="info-value" id="contactIdDisplay">—</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-secondary" onclick="app.showMainPage()">Отмена</button>
+        <button class="btn btn-danger" id="deleteBtn" onclick="app.deleteContact()">Удалить</button>
+        <button class="btn btn-primary" onclick="app.saveContact()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- CHAT PAGE -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <div id="chatPage" class="hidden">
+    <button class="back-button" onclick="app.showMainPage()">
+      ← Назад к списку
+    </button>
+
+    <div class="chat-header">
+      <div class="chat-avatar" id="chatAvatar"></div>
+      <div class="chat-header-info">
+        <div class="chat-contact-name" id="chatContactName"></div>
+        <div class="chat-contact-meta" id="chatContactMeta"></div>
+      </div>
+    </div>
+
+    <div class="chat-card">
+      <div class="message-group">
+        <label class="message-label" for="inputMessage">Обычное сообщение</label>
+        <textarea id="inputMessage" placeholder="Простой текст..."></textarea>
+      </div>
+
+      <div class="chat-actions">
+        <button id="BtnEncodeMessageAndCopy" class="btn btn-primary" onclick="app.encodeMessageAndCopy()">🔒🗒️ Шифр. в буфер</button>
+        <button class="btn btn-primary" onclick="app.encodeMessage()">🔒 Шифровать</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('inputMessage').value='';">Очистить</button>
+      </div>
+
+      <br/><br/>
+
+      <div class="message-group">
+        <label class="message-label" for="outputMessage">Шифрованное сообщение</label>
+        <textarea id="outputMessage" placeholder="Зашифрованный текст..." ></textarea>
+      </div>
+      <div class="chat-actions">
+        <button id="BtnPasteAndDecodeMessage" class="btn btn-primary" onclick="app.pasteAndDecodeMessage()">📋🔓 Расшифр. из буфера</button>
+        <button class="btn btn-primary" onclick="app.decodeMessage()">🔓 Расшифровать</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('outputMessage').value='';">Очистить</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+###INCLUDE_IVERNARUS###
+</script>
+<script>
+// ════════════════════════════════════════════════════════════════════════════
+// Address Book Application
+// ════════════════════════════════════════════════════════════════════════════
+
+const app = {
+  currentContactId: null,
+  uploadedKey: null,
+
+  // ── Initialize ──────────────────────────────────────────────────────────
+  init() {
+    this.loadData();
+    this.render();
+    
+    // Enter key to add contact
+    document.getElementById('newContactName').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') this.createContact();
+    });
+  },
+
+  // ── Data Management ─────────────────────────────────────────────────────
+  loadData() {
+    const stored = localStorage.getItem('addressBook');
+    if (stored) {
+      this.data = JSON.parse(stored);
+    } else {
+      this.data = {
+        last_id: 1,
+        contacts: {}
+      };
+      this.saveData();
+    }
+  },
+
+  saveData() {
+    localStorage.setItem('addressBook', JSON.stringify(this.data));
+  },
+
+  // ── Main Page ───────────────────────────────────────────────────────────
+  render() {
+    const contactList = document.getElementById('contactList');
+    const contacts = Object.entries(this.data.contacts);
+
+    if (contacts.length === 0) {
+      contactList.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📇</div>
+          <div class="empty-state-title">Нет контактов</div>
+          <div class="empty-state-text">Добавьте контакты в список</div>
+        </div>
+      `;
+      return;
+    }
+
+    contactList.innerHTML = contacts
+      .sort((a, b) => a[1].name.localeCompare(b[1].name))
+      .map(([id, contact]) => {
+        const initial = contact.name.charAt(0).toUpperCase();
+        const keyInfo = contact.key_in ? `Ключ: ${contact.key_in.length} букв` : 'Нет ключа';
+        
+        return `
+          <div class="contact-item">
+            <div class="contact-avatar">${initial}</div>
+            <div class="contact-info">
+              <div class="contact-name">${this.escapeHtml(contact.name)}</div>
+              <div class="contact-meta">${keyInfo} · Потрачено: ${contact.key_in ? (contact.key_in_position/contact.key_in.length * 100).toFixed(2) : 0}% / ${contact.key_out ? (contact.key_out_position/contact.key_out.length * 100).toFixed(2) : 0}%</div>
+            </div>
+            <div class="contact-actions">
+              <button class="btn btn-secondary" onclick="app.editContact('${id}')">Правка</button>
+              <button class="btn btn-primary" onclick="app.openChat('${id}')">Чат</button>
+            </div>
+          </div>
+        `;
+      })
+      .join('');
+  },
+
+  createContact() {
+    const nameInput = document.getElementById('newContactName');
+    const name = nameInput.value.trim();
+    
+    if (!name) {
+      alert('Введите имя контакта');
+      return;
+    }
+
+    const newId = this.data.last_id;
+    this.data.contacts[newId] = {
+      name: name,
+      key_in: '',
+      key_in_position: 0,
+      key_out: '',
+      key_out_position: 0,
+      key_cleanup: false,
+      use_deniability: false
+    };
+
+    this.data.last_id++;
+    this.saveData();
+
+    nameInput.value = '';
+    this.editContact(newId);
+  },
+
+  editContact(contactId) {
+    this.currentContactId = contactId;
+    this.uploadedKey = null;
+    
+    const contact = this.data.contacts[contactId];
+    
+    document.getElementById('editName').value = contact.name;
+    document.getElementById('contactIdDisplay').textContent = contactId;
+    document.getElementById('editKeyCleanup').checked = contact.key_cleanup || false;
+    document.getElementById('editDeniability').checked = contact.use_deniability || false;
+    
+    // if (contact.key_in) {
+    //   document.getElementById('keyLengthDisplay').textContent = contact.key_in.length;
+    //   document.getElementById('fileUploadText').textContent = 'Ключ прикреплен (не забудьте сохранить!)';
+    //   document.getElementById('fileUploadArea').classList.add('has-file');
+    // } else {
+      document.getElementById('keyLengthDisplay').textContent = '—';
+      document.getElementById('fileUploadText').textContent = 'Нажмите для импорта ключа';
+      document.getElementById('fileUploadArea').classList.remove('has-file');
+    // }
+
+    this.showEditPage();
+  },
+
+  saveContact() {
+    const name = document.getElementById('editName').value.trim();
+
+    if (!name) {
+      alert('Введите имя контакта');
+      return;
+    }
+
+    const contact = this.data.contacts[this.currentContactId];
+    contact.name = name;
+
+    const keyCleanup = document.getElementById('editKeyCleanup').checked;
+    contact.key_cleanup = keyCleanup;
+
+    const use_deniability = document.getElementById('editDeniability').checked;
+    contact.use_deniability = use_deniability;
+
+    
+    if (this.uploadedKey !== null) {
+
+        // первая часть ключа для входящих
+        contact.key_in = this.uploadedKey.substring(0, Math.floor(this.uploadedKey.length / 2) );
+        contact.key_in_position = 0;
+
+        // вторая часть ключа для исходящих
+        contact.key_out = this.uploadedKey.substring(Math.floor(this.uploadedKey.length / 2) );
+        contact.key_out_position = 0;
+    }
+
+    this.saveData();
+    this.showMainPage();
+    this.render();
+  },
+
+  deleteContact() {
+    if (!confirm('Точно удалить контакт?')) {
+      return;
+    }
+
+    delete this.data.contacts[this.currentContactId];
+    this.saveData();
+    this.showMainPage();
+    this.render();
+  },
+
+  generateKey() {
+    // First confirmation
+    if (!confirm('⚠️ Это создаст новый ключ, старый ключ будет удален. Вы уверены?')) {
+      return;
+    }
+
+    // Second confirmation
+    if (!confirm('⚠️ Без старого ключа вы не сможете общаться с контактом, пока не передадите ему новый ключ! Вы точно уверены?')) {
+      return;
+    }
+
+    let keySize = 768 * 1024;
+
+    const printableStart = 32;  // Space
+    const printableEnd = 126;   // ~
+    const printableRange = printableEnd - printableStart + 1;
+
+
+    let randomArray = [];
+    while (randomArray.length < keySize) {
+        let tmpArray = new Uint8Array(1024);
+        window.crypto.getRandomValues(tmpArray);
+        randomArray.push(...tmpArray);
+    }
+
+    let key = '';
+    for (let i = 0; i < keySize; i++) {
+      const randomChar = String.fromCharCode(
+        printableStart + (randomArray[i] % printableRange)
+      );
+      key += randomChar;
+    }
+
+    // Update UI and internal state
+    this.uploadedKey = key;
+    document.getElementById('keyLengthDisplay').textContent = key.length.toLocaleString();
+    document.getElementById('fileUploadText').textContent = `Создан ключ на ${keySize} букв`;
+    document.getElementById('fileUploadArea').classList.add('has-file');
+
+    alert('✅ Ключ сгенерирован! Не забудьте сохранить контакт!');
+  },
+
+  shareKey() {
+    const contact = this.data.contacts[this.currentContactId];
+    
+    // Check if there's a key to export (either saved or newly uploaded/generated)
+    let keyToExport = this.uploadedKey !== null ? this.uploadedKey : (contact.key_in + contact.key_out);
+    
+    if (!keyToExport) {
+      alert('Нечего экспортировать! Сперва добавьте или сгенерируйте ключ.');
+      return;
+    }
+
+    // В случае экспорта меняем входящий и исходящий ключ местами
+    const key_in = keyToExport.substring(Math.floor(keyToExport.length / 2));
+    const key_out = keyToExport.substring(0, Math.floor(keyToExport.length / 2) );
+
+    keyToExport = key_in + key_out;
+
+    // Create filename: contact name + ".ivernus1.txt"
+    const safeName = contact.name.replace(/[^А-Яа-яa-zA-Z0-9-_]/g, '_');
+    const filename = `${safeName}.ivernus1.txt`;
+
+    // Create and download file
+    const blob = new Blob([keyToExport], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  },
+
+  handleKeyUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.uploadedKey = e.target.result;
+      document.getElementById('keyLengthDisplay').textContent = this.uploadedKey.length;
+      document.getElementById('fileUploadText').textContent = file.name;
+      document.getElementById('fileUploadArea').classList.add('has-file');
+      document.querySelector('.file-upload-hint').textContent = 'Нажмите сохранить, чтобы ключ обновился!';
+    };
+    reader.readAsText(file);
+  },
+
+  updateContactKeyLeftStat(contact) {
+      const out = `Ключ: 🔒${contact.key_in.length ? (contact.key_in_position/contact.key_in.length * 100).toFixed(2) : 0}% [осталось букв: ${contact.key_in.length - contact.key_in_position}]/ 🔓: ${contact.key_out.length ? (contact.key_out_position/contact.key_out.length * 100).toFixed(2) : 0}% [осталось букв: ${contact.key_out.length - contact.key_out_position}]`;
+
+      document.getElementById('chatContactMeta').textContent = out;
+  },
+
+
+  openChat(contactId) {
+    this.currentContactId = contactId;
+    const contact = this.data.contacts[contactId];
+    
+    if (!contact.key_in) {
+      alert('Добавьте ключ шифрования для контакта');
+      this.editContact(contactId);
+      return;
+    }
+
+    this.updateContactKeyLeftStat(contact);
+
+    // Populate chat header
+    const initial = contact.name.charAt(0).toUpperCase();
+    document.getElementById('chatAvatar').textContent = initial;
+    document.getElementById('chatContactName').textContent = contact.name;
+
+
+
+    // Clear message fields
+    document.getElementById('inputMessage').value = '';
+    document.getElementById('outputMessage').value = '';
+
+    this.showChatPage();
+  },
+
+  doKeyUpdates(contact, updateType, coder) {
+
+      // подрезка ключа, только если не было ошибок при его использовании
+      if ( (coder.lastError === null) && contact.key_cleanup) {
+          if (updateType === 'in') {
+              const blanks = '#'.repeat(contact.key_in_position);
+              contact.key_in = blanks + contact.key_in.substring(contact.key_in_position);
+          } else {
+              const blanks = '#'.repeat(contact.key_out_position);
+              contact.key_out = blanks + contact.key_out.substring(contact.key_out_position);
+          }
+      }
+      this.saveData();
+      this.loadData();
+      this.render();
+      this.updateContactKeyLeftStat(contact);
+  },
+
+  animateButtonClick(btnElm) {
+      const className = "btn-Animate-click";
+      btnElm.classList.add(className);
+      setTimeout(() => { btnElm.classList.remove(className) }, 500)
+  },
+
+  async encodeMessageAndCopy(event) {
+      this.encodeMessage();
+      const clipboardItemData = {
+          ["text/plain"]: document.getElementById('outputMessage').value,
+      };
+      const clipboardItem = new ClipboardItem(clipboardItemData);
+      await navigator.clipboard.write([clipboardItem]);
+
+      this.animateButtonClick(document.getElementById("BtnEncodeMessageAndCopy"));
+  },
+
+  encodeMessage() {
+      const contact = this.data.contacts[this.currentContactId];
+      const coder = new IVernarus1( contact.key_out,  contact.key_out_position, { 'deniability' : contact.use_deniability });
+      const srcMessage = document.getElementById('inputMessage').value;
+      const encoded = coder.encryptMessage(srcMessage);
+      document.getElementById('outputMessage').value = encoded;
+
+      if (contact.key_out.length <= contact.key_out_position) {
+          alert('Ключ закончился, обновите ключи');
+          return;
+      }
+
+      contact.key_out_position = coder.lastKeyPos;
+
+      this.doKeyUpdates(contact, 'out', coder);
+  },
+
+  async pasteAndDecodeMessage() {
+      const text = await navigator.clipboard.readText();
+      document.getElementById('outputMessage').value = text;
+      app.decodeMessage();
+      this.animateButtonClick(document.getElementById("BtnPasteAndDecodeMessage"));
+      document.getElementById('inputMessage').focus();
+  },
+
+  decodeMessage() {
+      const contact = this.data.contacts[this.currentContactId];
+
+      const inputMessage = document.getElementById('outputMessage').value;
+
+      // защита от перезаписи одноразового результата расшифровки
+      if (inputMessage === this.prevMessageForDecode && contact.key_cleanup) {
+          alert('Это собщение уже было расшифровано');
+          return;
+      }
+      this.prevMessageForDecode = inputMessage;
+
+      if (contact.key_in.length <= contact.key_in_position) {
+          alert('Ключ закончился, обновите ключи');
+          return;
+      }
+
+      const coder = new IVernarus1( contact.key_in, contact.key_in_position, { 'deniability' : contact.use_deniability });
+      const decoded = coder.decryptMessage(inputMessage);
+      document.getElementById('inputMessage').value = decoded;
+
+      contact.key_in_position = coder.lastKeyPos;
+
+      this.doKeyUpdates(contact, 'in', coder);
+  },
+
+  // ── Import / Export ─────────────────────────────────────────────────────
+  exportData() {
+    const dataStr = JSON.stringify(this.data, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `address-book-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  },
+
+  importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const imported = JSON.parse(e.target.result);
+        
+        // Validate data structure
+        if (typeof imported !== 'object' || 
+            typeof imported.last_id !== 'number' || 
+            typeof imported.contacts !== 'object') {
+          throw new Error('Invalid data structure');
+        }
+
+        // Validate contacts structure
+        for (const [id, contact] of Object.entries(imported.contacts)) {
+          if (!contact.name || 
+              typeof contact.key !== 'string' || 
+              typeof contact.key_position !== 'number') {
+            throw new Error(`Invalid contact structure for ID ${id}`);
+          }
+          // key_cleanup is optional, default to false if missing
+          if (contact.key_cleanup === undefined) {
+            contact.key_cleanup = false;
+          }
+        }
+
+        // Confirm before overwriting
+        if (Object.keys(this.data.contacts).length > 0) {
+          if (!confirm('This will replace all existing contacts. Continue?')) {
+            event.target.value = ''; // Reset file input
+            return;
+          }
+        }
+
+        // Import data
+        this.data = imported;
+        this.saveData();
+        this.render();
+        alert('Data imported successfully!');
+        
+      } catch (err) {
+        alert('Failed to import data: ' + err.message);
+      }
+      
+      // Reset file input
+      event.target.value = '';
+    };
+    reader.readAsText(file);
+  },
+
+  // ── Navigation ──────────────────────────────────────────────────────────
+  showMainPage() {
+    document.getElementById('mainPage').classList.remove('hidden');
+    document.getElementById('editPage').classList.add('hidden');
+    document.getElementById('chatPage').classList.add('hidden');
+    this.currentContactId = null;
+    this.uploadedKey = null;
+  },
+
+  showEditPage() {
+    document.getElementById('mainPage').classList.add('hidden');
+    document.getElementById('editPage').classList.remove('hidden');
+    document.getElementById('chatPage').classList.add('hidden');
+  },
+
+  showChatPage() {
+    document.getElementById('mainPage').classList.add('hidden');
+    document.getElementById('editPage').classList.add('hidden');
+    document.getElementById('chatPage').classList.remove('hidden');
+  },
+
+  // ── Utilities ───────────────────────────────────────────────────────────
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+};
+
+// Initialize app on load
+document.addEventListener('DOMContentLoaded', () => app.init());
+</script>
+
+</body>
+</html>
