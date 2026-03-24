@@ -1031,10 +1031,10 @@ const app = {
       // подрезка ключа, только если не было ошибок при его использовании
       if ( (coder.lastError === null) && contact.key_cleanup) {
           if (updateType === 'in') {
-              const blanks = '#'.repeat(contact.key_in_position);
+              const blanks = this.getRandomPrintableChars(contact.key_in_position);
               contact.key_in = blanks + contact.key_in.substring(contact.key_in_position);
           } else {
-              const blanks = '#'.repeat(contact.key_out_position);
+              const blanks = this.getRandomPrintableChars(contact.key_out_position);
               contact.key_out = blanks + contact.key_out.substring(contact.key_out_position);
           }
       }
