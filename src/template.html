@@ -897,6 +897,30 @@ const app = {
     this.render();
   },
 
+    getRandomPrintableChars(numChars) {
+	const printableStart = 32;  // Space
+	const printableEnd = 126;   // ~
+	const printableRange = printableEnd - printableStart + 1;
+
+	let randomArray = [];
+	while (randomArray.length < numChars) {
+            let tmpArray = new Uint8Array(1024);
+            window.crypto.getRandomValues(tmpArray);
+            randomArray.push(...tmpArray);
+	}
+	randomArray = randomArray.slice(0, numChars);
+
+	let randomString = '';
+	for (let i = 0; i < numChars; i++) {
+	    const randomChar = String.fromCharCode(
+		printableStart + (randomArray[i] % printableRange)
+	    );
+	    randomString += randomChar;
+	}
+
+	return randomString;
+    },
+
   generateKey() {
     // First confirmation
     if (!confirm('⚠️ Это создаст новый ключ, старый ключ будет удален. Вы уверены?')) {
@@ -908,27 +932,8 @@ const app = {
       return;
     }
 
-    let keySize = 768 * 1024;
-
-    const printableStart = 32;  // Space
-    const printableEnd = 126;   // ~
-    const printableRange = printableEnd - printableStart + 1;
-
-
-    let randomArray = [];
-    while (randomArray.length < keySize) {
-        let tmpArray = new Uint8Array(1024);
-        window.crypto.getRandomValues(tmpArray);
-        randomArray.push(...tmpArray);
-    }
-
-    let key = '';
-    for (let i = 0; i < keySize; i++) {
-      const randomChar = String.fromCharCode(
-        printableStart + (randomArray[i] % printableRange)
-      );
-      key += randomChar;
-    }
+    const keySize = 768 * 1024;
+    const key = this.getRandomPrintableChars(keySize);
 
     // Update UI and internal state
     this.uploadedKey = key;
