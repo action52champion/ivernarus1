@@ -181,7 +181,11 @@ module.exports = class IVernarus1 {
             }
         }
 
-        return msg.substring(0, appendPos+1) + extraValues.join("") + msg.substring(appendPos+1);
+        let result = msgChars.slice(0, appendPos+1);
+        result = result.concat(extraValues);
+        result = result.concat(msgChars.slice(appendPos+1));
+
+        return result.join("");
     }
 
     encodeDeniability(deniabilityType) {
@@ -272,6 +276,7 @@ module.exports = class IVernarus1 {
         const keyPos = this.decodeKeyPos(decodedData.keypos);
         const keyPiece = this.keyData.substring(keyPos, keyPos + decodedData.message.length);
         const deniability = this.decodeDeniability(decodedData.deniability);
+        this.buildAlphabets(deniability);
 
         let decodedMessage = this.decryptChunk(keyPiece, decodedData.message);
         if ((decodedData.message.length > this.checksumMessageMinLen) && (this.calculateChecksum(decodedMessage) !== decodedData.checksum)) {
