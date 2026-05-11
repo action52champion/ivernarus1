@@ -36,8 +36,7 @@ module.exports = class IVernarus1 {
         this.alphabets = this.alphanumAlphabets;
 
         if (deniability) {
-            this.alphabets.push(this.deniableAlphabet);
-            this.alphabets = [ this.alphabets.join("") ];
+            this.alphabets = this.alphabets.concat( this.deniableAlphabet );
         }
 
         for (let i = 0; i < this.alphabets.length; i++) {

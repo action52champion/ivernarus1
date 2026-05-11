@@ -1103,7 +1103,7 @@ const app = {
           return;
       }
 
-      const coder = new IVernarus1( contact.key_in, contact.key_in_position );
+      const coder = new IVernarus1( contact.key_in, contact.key_in_position, { 'deniability' : contact.use_deniability });
       const decoded = coder.decryptMessage(inputMessage);
       document.getElementById('inputMessage').value = decoded;
 
