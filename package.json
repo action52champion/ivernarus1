@@ -1,7 +1,16 @@
 {
-    "name": "ivernarus1",
+    "name": "ivernarus2",
+    "version": "2.0.0",
+    "description": "Independent-of-messenger encryption (Vernam cipher / one-time pad) in a single offline HTML file.",
     "scripts": {
-        "tests": "nodejs tests/test_suite.js",
-        "build_html": "nodejs scripts/builder.js"
+        "tests": "node --test tests/test_suite.js",
+        "build_html": "node scripts/builder.js",
+        "bundle_argon2": "node scripts/bundle_argon2.js"
+    },
+    "dependencies": {
+        "@noble/hashes": "^2.2.0"
+    },
+    "devDependencies": {
+        "esbuild": "^0.28.0"
     }
 }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ivernarus 2</title>
   <meta name="referrer" content="no-referrer" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' ###CSP_SCRIPT_HASHES###; style-src 'self' 'unsafe-inline'; img-src data:; font-src 'self' data:; connect-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-7jF/uCgHMk8pedPgY0I2sc1uH0Mu4V1Cw2csLQn/vOI=' 'sha256-fgThAqzQO46So4Etg+YFSi5iOkY+cunJ4G1BfGk/FzY=' 'sha256-w/sb/VeKZtett/IRBYctIvra4VzX3ZtXZ/tQPxZZmKA=' 'sha256-k5QJ/QRWdrAoAGJA+bIFdc3t8dRDVds3TMthH96FFAA=' 'sha256-kD4avc5HkMvKoj6itz0g6xqklfKxTrR8r1en5MKjhjk='; style-src 'self' 'unsafe-inline'; img-src data:; font-src 'self' data:; connect-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none';" />
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), accelerometer=(), gyroscope=(), magnetometer=(), midi=(), serial=(), interest-cohort=(), browsing-topics=()" />
   <style>
     :root {
@@ -1205,10 +1205,89 @@
 </div>
 
 <script>
-###INCLUDE_THEMES###
+// Цветовые темы Ivernarus1.
+//
+// Чтобы добавить свою тему, скопируйте один из блоков ниже и измените значения.
+// Имя ключа (например 'light') используется внутренне; поле name отображается
+// в выпадающем меню настроек. Тема автоматически появится после пересборки.
+
+const THEMES = {
+
+    light: {
+        name: 'Светлая',
+        vars: {
+            '--bg':            '#fafbfc',
+            '--bg-card':       '#ffffff',
+            '--bg-hover':      '#f5f7fa',
+            '--border':        '#e1e8ed',
+            '--border-focus':  '#6b8cae',
+            '--text-primary':  '#1a2332',
+            '--text-secondary':'#5a6d7f',
+            '--text-muted':    '#8b9ba8',
+            '--accent':        '#4a7ba7',
+            '--accent-hover':  '#3a6a95',
+            '--danger':        '#d14343',
+            '--danger-hover':  '#b93838',
+            '--success':       '#3ea368',
+            '--shadow-sm':     '0 1px 3px rgba(0,0,0,0.08)',
+            '--shadow-md':     '0 4px 12px rgba(0,0,0,0.1)',
+            '--shadow-lg':     '0 8px 24px rgba(0,0,0,0.12)',
+            '--avatar-grad':   'linear-gradient(135deg, #6b8cae 0%, #4a7ba7 100%)',
+        },
+    },
+
+    dark: {
+        name: 'Тёмная',
+        vars: {
+            '--bg':            '#1a1d24',
+            '--bg-card':       '#242832',
+            '--bg-hover':      '#2d323e',
+            '--border':        '#353a47',
+            '--border-focus':  '#6ba0d4',
+            '--text-primary':  '#e1e8ed',
+            '--text-secondary':'#a8b3bd',
+            '--text-muted':    '#6f7a85',
+            '--accent':        '#6ba0d4',
+            '--accent-hover':  '#83b5e3',
+            '--danger':        '#e25656',
+            '--danger-hover':  '#f06a6a',
+            '--success':       '#4cb87f',
+            '--shadow-sm':     '0 1px 3px rgba(0,0,0,0.4)',
+            '--shadow-md':     '0 4px 12px rgba(0,0,0,0.5)',
+            '--shadow-lg':     '0 8px 24px rgba(0,0,0,0.6)',
+            '--avatar-grad':   'linear-gradient(135deg, #5a8fc7 0%, #3d6e9e 100%)',
+        },
+    },
+
+    paper: {
+        name: 'Бумажная',
+        vars: {
+            '--bg':            '#ede1c4',
+            '--bg-card':       '#f7eedc',
+            '--bg-hover':      '#e6d8b8',
+            '--border':        '#cdb98e',
+            '--border-focus':  '#8a6d2c',
+            '--text-primary':  '#3d2e15',
+            '--text-secondary':'#6b5530',
+            '--text-muted':    '#9a8761',
+            '--accent':        '#8a5a2c',
+            '--accent-hover':  '#6f4720',
+            '--danger':        '#a83e3e',
+            '--danger-hover':  '#8d3232',
+            '--success':       '#6b8a3a',
+            '--shadow-sm':     '0 1px 3px rgba(94,68,30,0.12)',
+            '--shadow-md':     '0 4px 12px rgba(94,68,30,0.18)',
+            '--shadow-lg':     '0 8px 24px rgba(94,68,30,0.22)',
+            '--avatar-grad':   'linear-gradient(135deg, #b08a52 0%, #8a5a2c 100%)',
+        },
+    },
+
+};
+
 </script>
 <script>
-###INCLUDE_ARGON2###
+(()=>{var At=Object.defineProperty;var Lt=(t,e,n)=>e in t?At(t,e,{enumerable:!0,configurable:!0,writable:!0,value:n}):t[e]=n;var b=(t,e,n)=>Lt(t,typeof e!="symbol"?e+"":e,n);var J=BigInt(4294967295),ut=BigInt(32);function at(t,e=!1){return e?{h:Number(t&J),l:Number(t>>ut&J)}:{h:Number(t>>ut&J)|0,l:Number(t&J)|0}}var C=(t,e,n)=>t>>>n|e<<32-n,G=(t,e,n)=>t<<32-n|e>>>n,Q=(t,e,n)=>t<<64-n|e>>>n-32,W=(t,e,n)=>t>>>n-32|e<<64-n,K=(t,e)=>e,v=(t,e)=>t;function ot(t,e,n,o){let s=(e>>>0)+(o>>>0);return{h:t+n+(s/2**32|0)|0,l:s|0}}var P=(t,e,n)=>(t>>>0)+(e>>>0)+(n>>>0),z=(t,e,n,o)=>e+n+o+(t/2**32|0)|0;function Et(t){return t instanceof Uint8Array||ArrayBuffer.isView(t)&&t.constructor.name==="Uint8Array"&&"BYTES_PER_ELEMENT"in t&&t.BYTES_PER_ELEMENT===1}function N(t,e=""){if(typeof t!="number"){let n=e&&`"${e}" `;throw new TypeError(`${n}expected number, got ${typeof t}`)}if(!Number.isSafeInteger(t)||t<0){let n=e&&`"${e}" `;throw new RangeError(`${n}expected integer >= 0, got ${t}`)}}function I(t,e,n=""){let o=Et(t),s=t?.length,r=e!==void 0;if(!o||r&&s!==e){let c=n&&`"${n}" `,i=r?` of length ${e}`:"",f=o?`length=${s}`:`type=${typeof t}`,u=c+"expected Uint8Array"+i+", got "+f;throw o?new RangeError(u):new TypeError(u)}return t}function it(t,e=!0){if(t.destroyed)throw new Error("Hash instance has been destroyed");if(e&&t.finished)throw new Error("Hash#digest() has already been called")}function dt(t,e){I(t,void 0,"digestInto() output");let n=e.outputLen;if(t.length<n)throw new RangeError('"digestInto() output" expected to be of length >='+n)}function F(t){return new Uint8Array(t.buffer,t.byteOffset,t.byteLength)}function T(t){return new Uint32Array(t.buffer,t.byteOffset,Math.floor(t.byteLength/4))}function U(...t){for(let e=0;e<t.length;e++)t[e].fill(0)}var pt=new Uint8Array(new Uint32Array([287454020]).buffer)[0]===68;function xt(t){return t<<24&4278190080|t<<8&16711680|t>>>8&65280|t>>>24&255}var B=pt?t=>t:t=>xt(t)>>>0;function Ut(t){for(let e=0;e<t.length;e++)t[e]=xt(t[e]);return t}var E=pt?t=>t:Ut;function Ht(t){if(typeof t!="string")throw new TypeError("string expected");return new Uint8Array(new TextEncoder().encode(t))}function tt(t,e=""){return typeof t=="string"?Ht(t):I(t,void 0,e)}function bt(t,e={}){let n=(s,r)=>t(r).update(s).digest(),o=t(void 0);return n.outputLen=o.outputLen,n.blockLen=o.blockLen,n.canXOF=o.canXOF,n.create=s=>t(s),Object.assign(n,e),Object.freeze(n)}var wt=Uint8Array.from([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,14,10,4,8,9,15,13,6,1,12,0,2,11,7,5,3,11,8,12,0,5,2,15,13,10,14,3,6,7,1,9,4,7,9,3,1,13,12,11,14,2,6,5,10,4,0,15,8,9,0,5,7,2,4,10,15,14,1,11,12,6,8,3,13,2,12,6,10,0,11,8,3,4,13,7,5,15,14,1,9,12,5,1,15,14,13,4,10,0,7,6,3,9,2,8,11,13,11,7,14,12,1,3,9,5,0,15,4,8,6,2,10,6,15,14,9,11,3,0,8,12,2,13,7,1,4,10,5,10,2,8,4,7,6,1,5,15,11,9,14,3,12,13,0,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,14,10,4,8,9,15,13,6,1,12,0,2,11,7,5,3,11,8,12,0,5,2,15,13,10,14,3,6,7,1,9,4,7,9,3,1,13,12,11,14,2,6,5,10,4,0,15,8,9,0,5,7,2,4,10,15,14,1,11,12,6,8,3,13,2,12,6,10,0,11,8,3,4,13,7,5,15,14,1,9]);var m=Uint32Array.from([4089235720,1779033703,2227873595,3144134277,4271175723,1013904242,1595750129,2773480762,2917565137,1359893119,725511199,2600822924,4215389547,528734635,327033209,1541459225]),l=new Uint32Array(32);function S(t,e,n,o,s,r){let c=s[r],i=s[r+1],f=l[2*t],u=l[2*t+1],h=l[2*e],a=l[2*e+1],x=l[2*n],w=l[2*n+1],d=l[2*o],p=l[2*o+1],A=P(f,h,c);u=z(A,u,a,i),f=A|0,{Dh:p,Dl:d}={Dh:p^u,Dl:d^f},{Dh:p,Dl:d}={Dh:K(p,d),Dl:v(p,d)},{h:w,l:x}=ot(w,x,p,d),{Bh:a,Bl:h}={Bh:a^w,Bl:h^x},{Bh:a,Bl:h}={Bh:C(a,h,24),Bl:G(a,h,24)},l[2*t]=f,l[2*t+1]=u,l[2*e]=h,l[2*e+1]=a,l[2*n]=x,l[2*n+1]=w,l[2*o]=d,l[2*o+1]=p}function D(t,e,n,o,s,r){let c=s[r],i=s[r+1],f=l[2*t],u=l[2*t+1],h=l[2*e],a=l[2*e+1],x=l[2*n],w=l[2*n+1],d=l[2*o],p=l[2*o+1],A=P(f,h,c);u=z(A,u,a,i),f=A|0,{Dh:p,Dl:d}={Dh:p^u,Dl:d^f},{Dh:p,Dl:d}={Dh:C(p,d,16),Dl:G(p,d,16)},{h:w,l:x}=ot(w,x,p,d),{Bh:a,Bl:h}={Bh:a^w,Bl:h^x},{Bh:a,Bl:h}={Bh:Q(a,h,63),Bl:W(a,h,63)},l[2*t]=f,l[2*t+1]=u,l[2*e]=h,l[2*e+1]=a,l[2*n]=x,l[2*n+1]=w,l[2*o]=d,l[2*o+1]=p}function It(t,e={},n,o,s){if(N(n),t<=0||t>n)throw new Error("outputLen bigger than keyLen");let{key:r,salt:c,personalization:i}=e;if(r!==void 0&&(r.length<1||r.length>n))throw new Error('"key" expected to be undefined or of length=1..'+n);c!==void 0&&I(c,o,"salt"),i!==void 0&&I(i,s,"personalization")}var st=class{constructor(e,n){b(this,"buffer");b(this,"buffer32");b(this,"finished",!1);b(this,"destroyed",!1);b(this,"length",0);b(this,"pos",0);b(this,"blockLen");b(this,"outputLen");b(this,"canXOF",!1);N(e),N(n),this.blockLen=e,this.outputLen=n,this.buffer=new Uint8Array(e),this.buffer32=T(this.buffer)}update(e){it(this),I(e);let{blockLen:n,buffer:o,buffer32:s}=this,r=e.length,c=e.byteOffset,i=e.buffer;for(let f=0;f<r;){this.pos===n&&(E(s),this.compress(s,0,!1),E(s),this.pos=0);let u=Math.min(n-this.pos,r-f),h=c+f;if(u===n&&!(h%4)&&f+u<r){let a=new Uint32Array(i,h,Math.floor((r-f)/4));E(a);for(let x=0;f+n<r;x+=s.length,f+=n)this.length+=n,this.compress(a,x,!1);E(a);continue}o.set(e.subarray(f,f+u),this.pos),this.pos+=u,this.length+=u,f+=u}return this}digestInto(e){it(this),dt(e,this);let{pos:n,buffer32:o}=this;if(this.finished=!0,U(this.buffer.subarray(n)),E(o),this.compress(o,0,!0),E(o),e.byteOffset&3)throw new RangeError('"digestInto() output" expected 4-byte aligned byteOffset, got '+e.byteOffset);let s=this.get(),r=T(e),c=Math.floor(this.outputLen/4);for(let h=0;h<c;h++)r[h]=B(s[h]);let i=this.outputLen%4;if(!i)return;let f=c*4,u=s[c];for(let h=0;h<i;h++)e[f+h]=u>>>8*h}digest(){let{buffer:e,outputLen:n}=this;this.digestInto(e);let o=e.slice(0,n);return this.destroy(),o}_cloneInto(e){let{buffer:n,length:o,finished:s,destroyed:r,outputLen:c,pos:i}=this;return e||(e=new this.constructor({dkLen:c})),e.set(...this.get()),e.buffer.set(n),e.destroyed=r,e.finished=s,e.length=o,e.pos=i,e.outputLen=c,e}clone(){return this._cloneInto()}},ft=class extends st{constructor(n={}){let o=n.dkLen===void 0?64:n.dkLen;super(128,o);b(this,"v0l",m[0]|0);b(this,"v0h",m[1]|0);b(this,"v1l",m[2]|0);b(this,"v1h",m[3]|0);b(this,"v2l",m[4]|0);b(this,"v2h",m[5]|0);b(this,"v3l",m[6]|0);b(this,"v3h",m[7]|0);b(this,"v4l",m[8]|0);b(this,"v4h",m[9]|0);b(this,"v5l",m[10]|0);b(this,"v5h",m[11]|0);b(this,"v6l",m[12]|0);b(this,"v6h",m[13]|0);b(this,"v7l",m[14]|0);b(this,"v7h",m[15]|0);It(o,n,64,16,16);let{key:s,personalization:r,salt:c}=n,i=0;if(s!==void 0&&(I(s,void 0,"key"),i=s.length),this.v0l^=this.outputLen|i<<8|65536|1<<24,c!==void 0){I(c,void 0,"salt");let f=T(c);this.v4l^=B(f[0]),this.v4h^=B(f[1]),this.v5l^=B(f[2]),this.v5h^=B(f[3])}if(r!==void 0){I(r,void 0,"personalization");let f=T(r);this.v6l^=B(f[0]),this.v6h^=B(f[1]),this.v7l^=B(f[2]),this.v7h^=B(f[3])}if(s!==void 0){let f=new Uint8Array(this.blockLen);f.set(s),this.update(f)}}get(){let{v0l:n,v0h:o,v1l:s,v1h:r,v2l:c,v2h:i,v3l:f,v3h:u,v4l:h,v4h:a,v5l:x,v5h:w,v6l:d,v6h:p,v7l:A,v7h:y}=this;return[n,o,s,r,c,i,f,u,h,a,x,w,d,p,A,y]}set(n,o,s,r,c,i,f,u,h,a,x,w,d,p,A,y){this.v0l=n|0,this.v0h=o|0,this.v1l=s|0,this.v1h=r|0,this.v2l=c|0,this.v2h=i|0,this.v3l=f|0,this.v3h=u|0,this.v4l=h|0,this.v4h=a|0,this.v5l=x|0,this.v5h=w|0,this.v6l=d|0,this.v6h=p|0,this.v7l=A|0,this.v7h=y|0}compress(n,o,s){this.get().forEach((u,h)=>l[h]=u),l.set(m,16);let{h:r,l:c}=at(BigInt(this.length));l[24]=m[8]^c,l[25]=m[9]^r,s&&(l[28]=~l[28],l[29]=~l[29]);let i=0,f=wt;for(let u=0;u<12;u++)S(0,4,8,12,n,o+2*f[i++]),D(0,4,8,12,n,o+2*f[i++]),S(1,5,9,13,n,o+2*f[i++]),D(1,5,9,13,n,o+2*f[i++]),S(2,6,10,14,n,o+2*f[i++]),D(2,6,10,14,n,o+2*f[i++]),S(3,7,11,15,n,o+2*f[i++]),D(3,7,11,15,n,o+2*f[i++]),S(0,5,10,15,n,o+2*f[i++]),D(0,5,10,15,n,o+2*f[i++]),S(1,6,11,12,n,o+2*f[i++]),D(1,6,11,12,n,o+2*f[i++]),S(2,7,8,13,n,o+2*f[i++]),D(2,7,8,13,n,o+2*f[i++]),S(3,4,9,14,n,o+2*f[i++]),D(3,4,9,14,n,o+2*f[i++]);this.v0l^=l[0]^l[16],this.v0h^=l[1]^l[17],this.v1l^=l[2]^l[18],this.v1h^=l[3]^l[19],this.v2l^=l[4]^l[20],this.v2h^=l[5]^l[21],this.v3l^=l[6]^l[22],this.v3h^=l[7]^l[23],this.v4l^=l[8]^l[24],this.v4h^=l[9]^l[25],this.v5l^=l[10]^l[26],this.v5h^=l[11]^l[27],this.v6l^=l[12]^l[28],this.v6h^=l[13]^l[29],this.v7l^=l[14]^l[30],this.v7h^=l[15]^l[31],U(l)}destroy(){this.destroyed=!0,U(this.buffer32),this.set(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)}},V=bt(t=>new ft(t));var nt={Argond2d:0,Argon2i:1,Argon2id:2},X=4,yt=(t,e="")=>t===void 0?Uint8Array.of():tt(t,e);function ct(t,e){let n=t&65535,o=t>>>16,s=e&65535,r=e>>>16,c=Math.imul(n,s),i=Math.imul(o,s),f=Math.imul(n,r),u=Math.imul(o,r),h=(c>>>16)+(i&65535)+f,a=u+(i>>>16)+(h>>>16)|0,x=h<<16|c&65535;return{h:a,l:x}}function Tt(t,e){let{h:n,l:o}=ct(t,e);return{h:(n<<1|o>>>31)&4294967295,l:o<<1&4294967295}}function et(t,e,n,o){let{h:s,l:r}=Tt(e,o),c=P(e,o,r);return{h:z(c,t,n,s),l:c|0}}var g=new Uint32Array(256);function O(t,e,n,o){let s=g[2*t],r=g[2*t+1],c=g[2*e],i=g[2*e+1],f=g[2*n],u=g[2*n+1],h=g[2*o],a=g[2*o+1];({h:r,l:s}=et(r,s,i,c)),{Dh:a,Dl:h}={Dh:a^r,Dl:h^s},{Dh:a,Dl:h}={Dh:K(a,h),Dl:v(a,h)},{h:u,l:f}=et(u,f,a,h),{Bh:i,Bl:c}={Bh:i^u,Bl:c^f},{Bh:i,Bl:c}={Bh:C(i,c,24),Bl:G(i,c,24)},{h:r,l:s}=et(r,s,i,c),{Dh:a,Dl:h}={Dh:a^r,Dl:h^s},{Dh:a,Dl:h}={Dh:C(a,h,16),Dl:G(a,h,16)},{h:u,l:f}=et(u,f,a,h),{Bh:i,Bl:c}={Bh:i^u,Bl:c^f},{Bh:i,Bl:c}={Bh:Q(i,c,63),Bl:W(i,c,63)},g[2*t]=s,g[2*t+1]=r,g[2*e]=c,g[2*e+1]=i,g[2*n]=f,g[2*n+1]=u,g[2*o]=h,g[2*o+1]=a}function gt(t,e,n,o,s,r,c,i,f,u,h,a,x,w,d,p){O(t,s,f,x),O(e,r,u,w),O(n,c,h,d),O(o,i,a,p),O(t,r,h,p),O(e,c,a,x),O(n,i,f,w),O(o,s,u,d)}function Y(t,e,n,o,s){for(let r=0;r<256;r++)g[r]=t[e+r]^t[n+r];for(let r=0;r<128;r+=16)gt(r,r+1,r+2,r+3,r+4,r+5,r+6,r+7,r+8,r+9,r+10,r+11,r+12,r+13,r+14,r+15);for(let r=0;r<16;r+=2)gt(r,r+1,r+16,r+17,r+32,r+33,r+48,r+49,r+64,r+65,r+80,r+81,r+96,r+97,r+112,r+113);if(s)for(let r=0;r<256;r++)t[o+r]^=g[r]^t[e+r]^t[n+r];else for(let r=0;r<256;r++)t[o+r]=g[r]^t[e+r]^t[n+r];U(g)}function lt(t,e){let n=F(t),o=new Uint32Array(1),s=F(o);if(o[0]=B(e),e<=64)return V.create({dkLen:e}).update(s).update(n).digest();let r=new Uint8Array(e),c=V.create({}).update(s).update(n).digest(),i=0;for(r.set(c.subarray(0,32)),i+=32;e-i>64;i+=32){let f=V.create({}).update(c);f.digestInto(c),f.destroy(),r.set(c.subarray(0,32),i)}return r.set(V(c,{dkLen:e-i}),i),U(c,o),r}function St(t,e,n,o,s,r,c=!1){let i;t===0?e===0?i=s-1:c?i=e*o+s-1:i=e*o+(s==0?-1:0):c?i=n-o+s-1:i=n-o+(s==0?-1:0);let f=t!==0&&e!==X-1?(e+1)*o:0,u=i-1-ct(i,ct(r,r).h).h;return(f+u)%n}var mt=Math.pow(2,32);function _(t){return Number.isSafeInteger(t)&&t>=0&&t<mt}function Dt(t){let e={version:19,dkLen:32,maxmem:mt-1,asyncTick:10};for(let[u,h]of Object.entries(t))h!==void 0&&(e[u]=h);let{dkLen:n,p:o,m:s,t:r,version:c,onProgress:i,asyncTick:f}=e;if(!_(n)||n<4)throw new Error('"dkLen" must be 4..');if(!_(o)||o<1||o>=Math.pow(2,24))throw new Error('"p" must be 1..2^24');if(!_(s))throw new Error('"m" must be 0..2^32');if(!_(r)||r<1)throw new Error('"t" (iterations) must be 1..2^32');if(i!==void 0&&typeof i!="function")throw new Error('"progressCb" must be a function');if(N(f,"asyncTick"),!_(s)||s<8*o)throw new Error('"m" (memory) must be at least 8*p bytes');if(c!==16&&c!==19)throw new Error('"version" must be 0x10 or 0x13, got '+c);return e}function Ot(t,e,n,o){if(t=tt(t,"password"),e=tt(e,"salt"),!_(t.length))throw new Error('"password" must be less of length 1..4Gb');if(!_(e.length)||e.length<8)throw new Error('"salt" must be of length 8..4Gb');if(!Object.values(nt).includes(n))throw new Error('"type" was invalid');let{p:s,dkLen:r,m:c,t:i,version:f,key:u,personalization:h,maxmem:a,onProgress:x,asyncTick:w}=Dt(o);u=yt(u,"key"),h=yt(h,"personalization");let d=V.create(),p=new Uint32Array(1),A=F(p);for(let L of[s,r,c,i,f,n])p[0]=B(L),d.update(A);for(let L of[t,e,u,h])p[0]=B(L.length),d.update(A).update(L);let y=new Uint32Array(18),k=F(y);d.digestInto(k);let M=s,R=4*s*Math.floor(c/(X*s)),H=Math.floor(R/s),$=Math.floor(H/X),j=R*1024;if(!_(a))throw new Error('"maxmem" expected <2**32, got '+a);if(j>a)throw new Error('"maxmem" limit was hit: memUsed(mP*1024)='+j+", maxmem="+a);let rt=new Uint32Array(j/4);for(let L=0;L<s;L++){let Z=256*H*L;y[17]=B(L),y[16]=B(0),rt.set(E(T(lt(y,1024))),Z),y[16]=B(1),rt.set(E(T(lt(y,1024))),Z+256)}let ht=()=>{};if(x){let L=i*X*s*$-2*s,Z=Math.max(Math.floor(L/1e4),1),q=0;ht=()=>{q++,x&&(!(q%Z)||q===L)&&x(q/L)}}return U(p,y),{type:n,mP:R,p:s,t:i,version:f,B:rt,laneLen:H,lanes:M,segmentLen:$,dkLen:r,perBlock:ht,asyncTick:w}}function _t(t,e,n,o){let s=new Uint32Array(256);for(let c=0;c<e;c++)for(let i=0;i<256;i++)s[i]^=t[256*(n*c+n-1)+i];let r=lt(E(s),o);return U(t,s),r}function Mt(t,e,n,o,s,r,c,i,f,u,h,a,x){u%c&&(h=u-1);let w,d;if(a){let k=r%128;k===0&&(e[268]++,Y(e,256,2*256,0,!1),Y(e,0,2*256,0,!1)),w=e[2*k],d=e[2*k+1]}else{let k=256*h;w=t[k],d=t[k+1]}let p=o===0&&s===0?n:d%f,A=St(o,s,c,i,r,w,p==n),y=c*p+A;Y(t,256*h,256*y,u*256,x)}function Rt(t,e,n,o){let{mP:s,p:r,t:c,version:i,B:f,laneLen:u,lanes:h,segmentLen:a,dkLen:x,perBlock:w}=Ot(e,n,t,o),d=new Uint32Array(3*256);d[262]=s,d[264]=c,d[266]=t;for(let p=0;p<c;p++){let A=p!==0&&i===19;d[256]=p;for(let y=0;y<X;y++){d[260]=y;let k=t==nt.Argon2i||t==nt.Argon2id&&p===0&&y<2;for(let M=0;M<r;M++){d[258]=M,d[268]=0;let R=0;p===0&&y===0&&(R=2,k&&(d[268]++,Y(d,256,2*256,0,!1),Y(d,0,2*256,0,!1)));let H=M*u+y*a+R,$=H%u?H-1:H+u-1;for(let j=R;j<a;j++,H++,$++)w(),Mt(f,d,M,p,y,j,u,a,h,H,$,k,A)}}}return U(d),_t(f,r,u,x)}var Bt=(t,e,n)=>Rt(nt.Argon2id,t,e,n);globalThis.argon2id=Bt;})();
+
 </script>
 <script>
 // Применяем сохранённую тему как можно раньше, чтобы не было вспышки светлой.
@@ -1226,7 +1305,386 @@
 </script>
 
 <script type="text/javascript">
-###INCLUDE_IVERNARUS###
+class IVernarus2 {
+
+    alphanumAlphabets = [
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        'abcdefghijklmnopqrstuvwxyz',
+        '0123456789',
+        'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
+        'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    ];
+
+    deniableAlphabet = ' -,.<>!?/\\+=_)(*&^%$#@`|№;:\n';
+
+    keyAlphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+
+    keyPosLength = 4;
+    keystreamBytesPerChar = 4;
+    authTagBytes = 10;       // 80-бит SHA-256-truncated тег
+    authTagChars = 16;       // 33^16 ≈ 2^80.2 - влезает с небольшим запасом
+    metadataLength = 1 + 16; // denflag + 16 символов auth-тега в keyAlphabet
+
+    lastError = null;
+    lastKeyPos = 0;
+
+    constructor(keyData, keyPos = 0, options = {}) {
+        this.keyData = keyData;
+        this.keyPos = keyPos;
+        this.deniability = !!(options && options.deniability);
+        this.lastError = null;
+    }
+
+    // ── вспомогательные ────────────────────────────────────────────────────
+
+    secureRandomInt(maxExclusive) {
+        if (!this._crypto) {
+            if (typeof globalThis !== 'undefined' && globalThis.crypto && globalThis.crypto.getRandomValues) {
+                this._crypto = globalThis.crypto;
+            } else if (typeof require === 'function') {
+                try { this._crypto = require('crypto').webcrypto; } catch (e) {}
+            }
+            if (!this._crypto || !this._crypto.getRandomValues) {
+                throw new Error('No CSPRNG available');
+            }
+        }
+        const arr = new Uint32Array(1);
+        const cutoff = Math.floor(0x100000000 / maxExclusive) * maxExclusive;
+        while (true) {
+            this._crypto.getRandomValues(arr);
+            if (arr[0] < cutoff) return arr[0] % maxExclusive;
+        }
+    }
+
+    textToCodePoints(text) {
+        const out = [];
+        for (const c of text) out.push(c);
+        return out;
+    }
+
+    buildAlphabets(deniability) {
+        let alphabets = this.alphanumAlphabets.slice();
+        if (deniability) {
+            alphabets.push(this.deniableAlphabet);
+            alphabets = [alphabets.join('')];
+        }
+        return alphabets;
+    }
+
+    // ── гамма ──────────────────────────────────────────────────────────────
+
+    // 4 ключевых символа (печатный ASCII 32..126) → uint32 в base-95.
+    readKeyUint32(keyPos) {
+        let v = 0;
+        for (let i = 0; i < this.keystreamBytesPerChar; i++) {
+            const code = this.keyData.charCodeAt(keyPos + i);
+            v = v * 95 + (code - 32);
+        }
+        return v;
+    }
+
+    // Очередное значение гаммы [0, alphabetLength) с rejection sampling.
+    // Двигает this.keyPos на keystreamBytesPerChar (или больше при отказе).
+    nextKeystream(alphabetLength) {
+        const max = Math.pow(95, this.keystreamBytesPerChar);  // 81_450_625
+        const cutoff = Math.floor(max / alphabetLength) * alphabetLength;
+        while (true) {
+            // Защита от отрицательного/нечислового keyPos (например после
+            // подделки ciphertext с битым keyPos-чанком). Иначе charCodeAt
+            // негативного индекса = NaN, и цикл крутил бы псевдо-rejections
+            // до выхода за длину - это freeze браузера на секунды.
+            if (!Number.isInteger(this.keyPos) || this.keyPos < 0 ||
+                this.keyPos + this.keystreamBytesPerChar > this.keyData.length) {
+                throw new Error('IVernarus2: ключ закончился или keyPos невалиден');
+            }
+            const v = this.readKeyUint32(this.keyPos);
+            this.keyPos += this.keystreamBytesPerChar;
+            if (v < cutoff) return v % alphabetLength;
+            // редчайший случай (у нас 95^4 ≈ 81M, отбрасываем хвост,
+            // не делящийся нацело на длину алфавита)
+        }
+    }
+
+    // ── кодирование служебных полей ────────────────────────────────────────
+
+    encodeKeyPos(pos) {
+        let s = '';
+        let n = pos;
+        const base = this.keyAlphabet.length;
+        while (true) {
+            s = this.keyAlphabet[n % base] + s;
+            n = Math.floor(n / base);
+            if (n === 0) break;
+        }
+        while (s.length < this.keyPosLength) s = this.keyAlphabet[0] + s;
+        return s;
+    }
+
+    // Возвращает >=0 при успехе, -1 если хоть один символ не в keyAlphabet.
+    // Без валидации indexOf=-1 загрязнял бы число и keyPos уходил в негатив.
+    decodeKeyPos(chars) {
+        let n = 0;
+        const base = this.keyAlphabet.length;
+        for (const c of chars) {
+            const d = this.keyAlphabet.indexOf(c);
+            if (d === -1) return -1;
+            n = n * base + d;
+        }
+        return n;
+    }
+
+    encodeDeniability(deniability) {
+        const half = Math.floor(this.keyAlphabet.length / 2);
+        const range = deniability
+            ? this.keyAlphabet.substring(half)
+            : this.keyAlphabet.substring(0, half);
+        return range[this.secureRandomInt(range.length)];
+    }
+
+    decodeDeniability(char) {
+        const half = Math.floor(this.keyAlphabet.length / 2);
+        return this.keyAlphabet.indexOf(char) >= half;
+    }
+
+    // SubtleCrypto для SHA-256. Доступен в браузере (window.crypto.subtle)
+    // и в Node 19+ (globalThis.crypto.subtle).
+    _subtle() {
+        if (this._subtleCache) return this._subtleCache;
+        if (typeof globalThis !== 'undefined' && globalThis.crypto && globalThis.crypto.subtle) {
+            this._subtleCache = globalThis.crypto.subtle;
+        } else if (typeof require === 'function') {
+            try { this._subtleCache = require('crypto').webcrypto.subtle; } catch (e) {}
+        }
+        if (!this._subtleCache) throw new Error('No SubtleCrypto available for SHA-256');
+        return this._subtleCache;
+    }
+
+    // 80-битный auth-тег от плейнтекста + keyPos. Привязка к keyPos нужна
+    // чтобы атакующий не мог взять валидное сообщение с одной keyPos и
+    // подставить чужой keyPos в открытой части - проверка не сошлась бы.
+    async computeAuthTag(plaintext, keyPos) {
+        const data = new TextEncoder().encode(plaintext + ':' + keyPos);
+        const hash = await this._subtle().digest('SHA-256', data);
+        return new Uint8Array(hash).slice(0, this.authTagBytes);
+    }
+
+    // 10 байт тега → 16 символов keyAlphabet (base-33). 33^16 ≈ 2^80.2,
+    // так что любое 80-битное значение влезает.
+    bytesToTagChars(bytes) {
+        let n = 0n;
+        for (const b of bytes) n = (n << 8n) | BigInt(b);
+        const base = BigInt(this.keyAlphabet.length);
+        let result = '';
+        for (let i = 0; i < this.authTagChars; i++) {
+            result = this.keyAlphabet[Number(n % base)] + result;
+            n = n / base;
+        }
+        return result;
+    }
+
+    // Константно-временное сравнение строк одинаковой длины.
+    // Без short-circuit, чтобы тайминг не выдавал позицию первой разницы.
+    _constantTimeStringEqual(a, b) {
+        if (a.length !== b.length) return false;
+        let diff = 0;
+        for (let i = 0; i < a.length; i++) {
+            diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+        }
+        return diff === 0;
+    }
+
+    findAlphabet(c, alphabets) {
+        for (const alpha of alphabets) {
+            const pos = alpha.indexOf(c);
+            if (pos !== -1) return { alpha, pos };
+        }
+        return null;
+    }
+
+    // Вставить keyPos сразу за последним alphanum-символом шифротекста
+    // (как в v1 - этот приём устойчив к хвостовым не-алфавитным символам).
+    appendKeyPos(encrypted, keyPosEncoded) {
+        const points = this.textToCodePoints(encrypted);
+        const alphanumChars = this.alphanumAlphabets.join('');
+        let appendPos = -1;
+        for (let i = points.length - 1; i >= 0; i--) {
+            if (alphanumChars.indexOf(points[i]) !== -1) {
+                appendPos = i;
+                break;
+            }
+        }
+        return points.slice(0, appendPos + 1).join('') +
+               keyPosEncoded +
+               points.slice(appendPos + 1).join('');
+    }
+
+    // ── основные операции ──────────────────────────────────────────────────
+
+    async encryptMessage(srcMsg) {
+        const startKeyPos = this.keyPos;
+        const bodyAlphabets = this.buildAlphabets(this.deniability);
+
+        // Метаданные: denflag + 80-битный auth-тег. Шифруются вместе с телом.
+        // tag привязан к keyPos чтобы атакующий не смог переставить ту же
+        // полезную нагрузку под другую keyPos в открытой части.
+        const denflagChar = this.encodeDeniability(this.deniability);
+        const tagBytes = await this.computeAuthTag(srcMsg, startKeyPos);
+        const tagChars = this.bytesToTagChars(tagBytes);
+        const composed = denflagChar + tagChars + srcMsg;
+
+        // Первые metadataLength символов - метаданные, шифруются ВСЕГДА
+        // через keyAlphabet (33 chars) независимо от режима. Остальное - тело
+        // в bodyAlphabets.
+        const points = this.textToCodePoints(composed);
+        let encrypted = '';
+        let metadataDoneCount = 0;
+
+        for (let i = 0; i < points.length; i++) {
+            const c = points[i];
+
+            if (metadataDoneCount < this.metadataLength) {
+                const pos = this.keyAlphabet.indexOf(c);
+                if (pos === -1) {
+                    // Не должно случаться - метаданные гарантированно в keyAlphabet
+                    throw new Error('IVernarus2: metadata char not in keyAlphabet');
+                }
+                const k = this.nextKeystream(this.keyAlphabet.length);
+                encrypted += this.keyAlphabet[(pos + k) % this.keyAlphabet.length];
+                metadataDoneCount++;
+                continue;
+            }
+
+            const found = this.findAlphabet(c, bodyAlphabets);
+            if (found) {
+                const k = this.nextKeystream(found.alpha.length);
+                encrypted += found.alpha[(found.pos + k) % found.alpha.length];
+            } else {
+                encrypted += c;  // не алфавит → проброс
+            }
+        }
+
+        const keyPosEncoded = this.encodeKeyPos(startKeyPos);
+        const result = this.appendKeyPos(encrypted, keyPosEncoded);
+
+        this.lastKeyPos = this.keyPos;
+        return result;
+    }
+
+    // Извлекает keyPos из сообщения без расшифровки.
+    // Нужно для replay-защиты: проверить keyPos ДО того как тратить ключ.
+    peekKeyPos(srcMsg) {
+        const points = this.textToCodePoints(srcMsg);
+        const alphanumChars = this.alphanumAlphabets.join('');
+        let lastAlphanumIdx = -1;
+        for (let i = points.length - 1; i >= 0; i--) {
+            if (alphanumChars.indexOf(points[i]) !== -1) {
+                lastAlphanumIdx = i;
+                break;
+            }
+        }
+        if (lastAlphanumIdx < this.keyPosLength - 1) return null;
+        const keyPosChars = points.slice(lastAlphanumIdx - this.keyPosLength + 1, lastAlphanumIdx + 1);
+        const kp = this.decodeKeyPos(keyPosChars);
+        // -1 = в keyPos-чанке оказались символы вне keyAlphabet (повреждение/подделка)
+        if (kp < 0) return null;
+        return kp;
+    }
+
+    async decryptMessage(srcMsg) {
+        this.lastError = null;
+        const points = this.textToCodePoints(srcMsg);
+        const alphanumChars = this.alphanumAlphabets.join('');
+
+        // Найти keyPos: последние keyPosLength alphanum-символов перед хвостом
+        let lastAlphanumIdx = -1;
+        for (let i = points.length - 1; i >= 0; i--) {
+            if (alphanumChars.indexOf(points[i]) !== -1) {
+                lastAlphanumIdx = i;
+                break;
+            }
+        }
+        if (lastAlphanumIdx < this.keyPosLength - 1) {
+            this.lastError = 'Сообщение слишком короткое или повреждено.';
+            return '';
+        }
+        const keyPosStartIdx = lastAlphanumIdx - this.keyPosLength + 1;
+        const keyPosChars = points.slice(keyPosStartIdx, lastAlphanumIdx + 1);
+        const keyPos = this.decodeKeyPos(keyPosChars);
+
+        // Жёсткая валидация keyPos чанка - только символы keyAlphabet и в
+        // пределах ключевого пространства. Иначе подделанный ciphertext
+        // мог бы загнать nextKeystream в долгий цикл или out-of-bounds read.
+        if (keyPos < 0 || keyPos + this.keystreamBytesPerChar > this.keyData.length) {
+            this.lastError = 'Невалидная позиция ключа в сообщении.';
+            return '';
+        }
+
+        // Тело = всё кроме чанка keyPos
+        const bodyPoints = points.slice(0, keyPosStartIdx)
+            .concat(points.slice(lastAlphanumIdx + 1));
+
+        // Расшифровка
+        this.keyPos = keyPos;
+
+        const decrypted = [];
+        let metadataDoneCount = 0;
+        let metadataChars = '';
+        let bodyAlphabets = null;
+
+        for (let i = 0; i < bodyPoints.length; i++) {
+            const c = bodyPoints[i];
+
+            if (metadataDoneCount < this.metadataLength) {
+                const pos = this.keyAlphabet.indexOf(c);
+                if (pos === -1) {
+                    // В метаданных НЕ должно быть не-keyAlphabet символов.
+                    // Если есть - сообщение повреждено, прерываем.
+                    this.lastError = 'Метаданные повреждены: неожиданный символ.';
+                    return '';
+                }
+                const k = this.nextKeystream(this.keyAlphabet.length);
+                const dpos = (pos - k + this.keyAlphabet.length) % this.keyAlphabet.length;
+                const dc = this.keyAlphabet[dpos];
+                decrypted.push(dc);
+                metadataChars += dc;
+                metadataDoneCount++;
+                if (metadataDoneCount === this.metadataLength) {
+                    // Декодируем denflag и строим алфавиты для тела
+                    const denflag = this.decodeDeniability(metadataChars[0]);
+                    bodyAlphabets = this.buildAlphabets(denflag);
+                }
+                continue;
+            }
+
+            const found = this.findAlphabet(c, bodyAlphabets);
+            if (found) {
+                const k = this.nextKeystream(found.alpha.length);
+                const dpos = (found.pos - k + found.alpha.length) % found.alpha.length;
+                decrypted.push(found.alpha[dpos]);
+            } else {
+                decrypted.push(c);
+            }
+        }
+
+        // Метаданные: 1 символ denflag + N символов auth-тега
+        const receivedTagChars = metadataChars.substring(1);
+        const originalPoints = decrypted.slice(this.metadataLength);
+        const originalMsg = originalPoints.join('');
+
+        // Сверяем auth-тег константно по времени, чтобы не дать атакующему
+        // брутить тег char-by-char через тайминг (обычное !== short-circuit'ит
+        // на первой разнице - утечка ~5 бит за запрос).
+        const expectedTagBytes = await this.computeAuthTag(originalMsg, keyPos);
+        const expectedTagChars = this.bytesToTagChars(expectedTagBytes);
+        if (!this._constantTimeStringEqual(expectedTagChars, receivedTagChars)) {
+            this.lastError = 'Auth-тег не сошёлся: сообщение повреждено или подделано.';
+        }
+
+        this.lastKeyPos = this.keyPos;
+        return originalMsg;
+    }
+};
+
 </script>
 <script>
 // ════════════════════════════════════════════════════════════════════════════
